@@ -1,0 +1,35 @@
+# Node
+web/node_modules/
+web/.vite/
+web/dist/
+
+# Python
+backend/.venv/
+backend/.mypy_cache/
+backend/__pycache__/
+backend/.pytest_cache/
+
+# VSCode/IDE
+.vscode/
+.idea/
+
+# Environment files and backups — never commit credentials
+.env
+.env.*
+!.env.example
+web/.env
+web/.env.*
+!web/.env.example
+
+# Bytecode
+**/__pycache__/
+**/*.pyc
+
+# Misc
+*.log
+*.DS_Store
+
+# Android build
+mobile/android/app/build/
+mobile/android/.gradle/
+mobile/android/.idea/
