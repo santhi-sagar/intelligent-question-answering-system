@@ -1,9 +1,10 @@
 // @ts-ignore - Vite env types
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+const DEFAULT_API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+const getApiBase = () => (localStorage.getItem('apiBase')?.trim() || DEFAULT_API_BASE).replace(/\/+$/, '')
 
 async function http<T>(path: string, opts?: RequestInit): Promise<T> {
   try {
-    const res = await fetch(`${API_BASE}${path}`, {
+    const res = await fetch(`${getApiBase()}${path}`, {
       ...opts,
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +26,7 @@ async function http<T>(path: string, opts?: RequestInit): Promise<T> {
   } catch (error: any) {
     // Handle network errors (CORS, connection refused, etc.)
     if (error instanceof TypeError && error.message.includes('fetch')) {
-      throw new Error(`Failed to connect to backend. Please ensure the backend is running at ${API_BASE}`)
+      throw new Error(`Failed to connect to backend. Please ensure the backend is running at ${getApiBase()}`)
     }
     // Re-throw other errors
     throw error
@@ -73,12 +74,13 @@ export const api = {
   ingestFile: async (file: File) => {
     const fd = new FormData()
     fd.append('file', file)
-    const res = await fetch(`${API_BASE}/api/ingest/file`, { method: 'POST', body: fd })
+    const res = await fetch(`${getApiBase()}/api/ingest/file`, { method: 'POST', body: fd })
     if (!res.ok) throw new Error(await res.text())
     return res.json()
   },
   getDocumentStatus: (documentId: string) => 
     http<DocumentStatus>(`/api/ingest/status/${documentId}`),
 }
+
 
 
