@@ -392,7 +392,7 @@ export default function Chat({ inputValue, onInputChange, presetQuestion, onOpen
                 }}
               />
               <button
-                onClick={onAsk}
+                onClick={() => onAsk()}
                 disabled={!input.trim() || busy}
                 className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
                   input.trim() && !busy
