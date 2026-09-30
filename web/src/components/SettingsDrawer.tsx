@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ServiceStatusDashboard from './ServiceStatusDashboard'
 
 type Props = { open: boolean; onClose: () => void }
 
@@ -64,6 +65,9 @@ export default function SettingsDrawer({ open, onClose }: Props) {
                 </div>
               </div>
             </div>
+
+            {/* Live service monitoring */}
+            <ServiceStatusDashboard />
 
             {/* Filters */}
             <div className="space-y-4">
@@ -146,5 +150,6 @@ export default function SettingsDrawer({ open, onClose }: Props) {
     </div>
   )
 }
+
 
 
